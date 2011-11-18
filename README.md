@@ -10,7 +10,7 @@ Patches for other distributions are welcome.
 Installation
 ------------
 
-1. Sign up for an account at https://support.newrelic.com/signup if you
+1. Sign up for an account at http://newrelic.com/signup if you
    haven't yet.
 2. Copy this directory to your puppet master module path
 3. Set your license key in the `$license_key` var in the `package.pp` file.
