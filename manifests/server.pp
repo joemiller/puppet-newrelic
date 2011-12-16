@@ -1,17 +1,19 @@
 class newrelic::server {
     include newrelic::package
 
-    $license = ""   # Set this before applying this class to your nodes!!!
+    if $newrelic_license == undef{ fail('$newrelic_license not defined') } 
 
     exec { "newrelic-set-license":
-        path    => ["/bin", "/usr/bin", "/sbin", "/usr/sbin"],
-        unless  => "grep -q 'license_key=${license}' /etc/newrelic/nrsysmond.cfg",
-        command => "nrsysmond-config --set license_key=${license}";
+        unless  => "grep -q 'license_key=${newrelic_license}' /etc/newrelic/nrsysmond.cfg",
+        command => "nrsysmond-config --set license_key=${newrelic_license}",
+        notify => Service['newrelic-sysmond'];
     }
 
     service { "newrelic-sysmond":
         enable  => true,
         ensure  => running,
+        hasstatus => true,
+        hasrestart => true,
         require => Class["newrelic::package"];
     }
 
