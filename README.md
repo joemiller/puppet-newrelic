@@ -13,7 +13,7 @@ Installation
 1. Sign up for an account at http://newrelic.com/signup if you
    haven't yet.
 2. Copy this directory to your puppet master module path
-3. Set your license key in the `$license_key` var in the `package.pp` file.
+3. Set your license key in the `$license_key` var in the `server.pp` file.
 4. Apply the `newrelic` class to any nodes you want the agent installed on.
 5. Login to your New Relic dashboard and you should see your servers show up
    in a few minutes.
