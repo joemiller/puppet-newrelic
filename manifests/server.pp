@@ -9,6 +9,12 @@ class newrelic::server {
         notify => Service['newrelic-sysmond'];
     }
 
+    exec { "newrelic-set-ssl":
+        unless  => "egrep -q ^ssl=true$ /etc/newrelic/nrsysmond.cfg",
+        command => "nrsysmond-config --set ssl=true",
+        notify => Service['newrelic-sysmond'];
+    }
+
     service { "newrelic-sysmond":
         enable  => true,
         ensure  => running,
