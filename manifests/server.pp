@@ -1,5 +1,6 @@
 class newrelic::server {
     include newrelic::package
+    $newrelic_license = $newrelic::license
 
     if $newrelic_license == undef{ fail('$newrelic_license not defined') }
 
