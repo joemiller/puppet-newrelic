@@ -3,8 +3,8 @@ class newrelic::server {
 
     if $newrelic_license == undef{ fail('$newrelic_license not defined') }
 
-    Exec {
-      path => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
+    Exec['newrelic-set-license', 'newrelic-set-ssl'] {
+      path +> ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
     }
 
     exec { "newrelic-set-license":
