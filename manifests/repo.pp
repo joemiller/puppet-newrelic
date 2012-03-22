@@ -1,4 +1,7 @@
 class newrelic::repo {
+    Exec['newrelic-add-apt-key', 'newrelic-add-apt-repo', 'newrelic-apt-get-update'] {
+      path +> ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
+    }
     case $operatingsystem {
         /Debian|Ubuntu/: {
             exec { newrelic-add-apt-key:
