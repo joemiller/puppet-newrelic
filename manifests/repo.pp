@@ -1,9 +1,9 @@
 class newrelic::repo {
-    Exec['newrelic-add-apt-key', 'newrelic-add-apt-repo', 'newrelic-apt-get-update'] {
-      path +> ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
-    }
     case $operatingsystem {
         /Debian|Ubuntu/: {
+            Exec['newrelic-add-apt-key', 'newrelic-add-apt-repo', 'newrelic-apt-get-update'] {
+                path +> ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
+            }
             exec { newrelic-add-apt-key:
                 unless  => "apt-key list | grep -q 1024D/548C16BF",
                 command => "apt-key adv --keyserver hkp://subkeys.pgp.net --recv-keys 548C16BF",
