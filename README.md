@@ -6,6 +6,11 @@ agent on your servers.
 
 This module supports yum and apt-based distributions
 
+Build Status
+------------
+
+[![Build Status](https://secure.travis-ci.org/avelino/puppet-newrelic.png)](http://travis-ci.org/avelino/puppet-newrelic
+
 Installation
 ------------
 
