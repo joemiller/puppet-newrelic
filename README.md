@@ -29,6 +29,7 @@ Joe Miller (http://joemiller.me / https://github.com/joemiller)
 Co-Authors
 ----------
 Caspar Clemens Mierau (http://www.screenage.de/blog/ https://github.com/damokles/)
+Thiago Avelino (http://avelino.us / http://github.com/avelino)
 
 LICENSE
 -------
