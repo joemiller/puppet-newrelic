@@ -23,7 +23,7 @@ class newrelic::repo {
                 owner   => root,
                 group   => root,
                 mode    => 0644,
-                source  => "puppet:///newrelic/RPM-GPG-KEY-NewRelic";
+                source  => "puppet:///modules/newrelic/RPM-GPG-KEY-NewRelic";
             }
 
             yumrepo { "newrelic":
