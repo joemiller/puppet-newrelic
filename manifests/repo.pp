@@ -1,21 +1,13 @@
 class newrelic::repo {
     case $operatingsystem {
         /Debian|Ubuntu/: {
-            Exec['newrelic-add-apt-key', 'newrelic-add-apt-repo', 'newrelic-apt-get-update'] {
-                path +> ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
-            }
-            exec { newrelic-add-apt-key:
-                unless  => "apt-key list | grep -q 1024D/548C16BF",
-                command => "apt-key adv --keyserver hkp://subkeys.pgp.net --recv-keys 548C16BF",
-            }
-            exec { newrelic-add-apt-repo:
-                creates => "/etc/apt/sources.list.d/newrelic.list",
-                command => "wget -O /etc/apt/sources.list.d/newrelic.list http://download.newrelic.com/debian/newrelic.list",
-            }
-            exec { newrelic-apt-get-update:
-                refreshonly => true,
-                subscribe   => [Exec["newrelic-add-apt-key"], Exec["newrelic-add-apt-repo"]],
-                command     => "apt-get update",
+            apt::source { 'newrelic':
+                location => 'http://apt.newrelic.com/debian/',
+                release => 'newrelic',
+                repos => 'non-free',
+                include_src => false,
+                key => true,
+                key_source => 'https://download.newrelic.com/548C16BF.gpg',
             }
         }
         default: {
