@@ -1,6 +1,6 @@
 # Class: newrelic::repo
 #
-# This module manages the newrelic apt repository
+# This module manages the Newrelic APT and YUM repositories
 #
 
 class newrelic::repo {
