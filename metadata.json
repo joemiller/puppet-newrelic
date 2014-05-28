@@ -1,0 +1,14 @@
+{ 
+	"name" : "puppet-newrelic",
+	"version" : "0.0.24",
+	"author" : "Joe Miller",
+	"summary" : "This puppet module will install New Relic's FREE Server monitor agent on your servers.",
+	"description" : "This puppet module will install New Relic's FREE Server monitor agent on your servers.",
+	"license" : "Apache License, Version 2.0",
+	"project_page" : "https://github.com/joemiller/puppet-newrelic",
+	"dependancies" : [
+		{ 	"name" : "puppetlabs-apt", 
+			"version_range" : ">= 1.4.2"
+		}
+	]
+}
