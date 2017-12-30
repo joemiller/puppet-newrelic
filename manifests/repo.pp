@@ -4,17 +4,25 @@ class newrelic::repo {
             Exec['newrelic-add-apt-key', 'newrelic-add-apt-repo', 'newrelic-apt-get-update'] {
                 path +> ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
             }
-            exec { newrelic-add-apt-key:
-                unless  => "apt-key list | grep -q 1024D/548C16BF",
-                command => "apt-key adv --keyserver hkp://subkeys.pgp.net --recv-keys 548C16BF",
-            }
             exec { newrelic-add-apt-repo:
                 creates => "/etc/apt/sources.list.d/newrelic.list",
                 command => "wget -O /etc/apt/sources.list.d/newrelic.list http://download.newrelic.com/debian/newrelic.list",
             }
+            exec { newrelic-get-apt-key:
+              command => 'wget -O newrelic_signing.key https://download.newrelic.com/548C16BF.gpg',
+              cwd => '/tmp/',
+              user => root,
+              creates => '/tmp/newrelic_signing.key',
+              require => Exec['newrelic-add-apt-repo'],
+            }
+            exec { newrelic-add-apt-key:
+              unless  => "apt-key list | grep -q 1024D/548C16BF",
+              command => "apt-key add newrelic_signing.key",
+              cwd => '/tmp/',
+              require => Exec['newrelic-get-apt-key'],
+            }
             exec { newrelic-apt-get-update:
-                refreshonly => true,
-                subscribe   => [Exec["newrelic-add-apt-key"], Exec["newrelic-add-apt-repo"]],
+                require   => [Exec["newrelic-add-apt-key"], Exec["newrelic-add-apt-repo"]],
                 command     => "apt-get update",
             }
         }
